@@ -1,0 +1,14 @@
+{
+  "name": "storage-object-conditional-write-history-validator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "本地内存模型：验证版本化对象存储的 If-Match/If-None-Match 条件写、删除标记、ETag 重用、保留策略与并发写竞争",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "UNLICENSED"
+}

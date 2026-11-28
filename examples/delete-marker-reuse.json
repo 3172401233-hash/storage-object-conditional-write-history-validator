@@ -1,0 +1,47 @@
+{
+  "key": "documents/report.txt",
+  "versions": [
+    {
+      "versionId": "v1",
+      "body": "alpha",
+      "etag": "\"etag-alpha\"",
+      "createdAt": "2026-11-28T01:00:00.000Z"
+    },
+    {
+      "versionId": "d1",
+      "isDeleteMarker": true,
+      "etag": "\"etag-alpha\"",
+      "createdAt": "2026-11-28T02:00:00.000Z"
+    }
+  ],
+  "operations": [
+    {
+      "id": "read-current-delete-marker",
+      "type": "get"
+    },
+    {
+      "id": "read-history-v1",
+      "type": "get",
+      "versionId": "v1"
+    },
+    {
+      "id": "correct-if-match-on-delete-marker",
+      "type": "put",
+      "body": "beta",
+      "ifMatch": "\"etag-alpha\""
+    },
+    {
+      "id": "recreate-after-marker",
+      "type": "put",
+      "body": "beta",
+      "ifNoneMatch": "*"
+    },
+    {
+      "id": "legacy-if-match-restores-marker",
+      "type": "put",
+      "body": "gamma",
+      "ifMatch": "\"etag-alpha\"",
+      "legacy": true
+    }
+  ]
+}

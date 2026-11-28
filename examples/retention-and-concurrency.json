@@ -1,0 +1,69 @@
+{
+  "key": "ledger/2026/entry.dat",
+  "retention": {
+    "mode": "GOVERNANCE",
+    "retainUntil": "2026-11-29T00:00:00.000Z"
+  },
+  "versions": [
+    {
+      "versionId": "v1",
+      "body": "seed",
+      "etag": "\"etag-seed\"",
+      "retention": {
+        "mode": "COMPLIANCE",
+        "retainUntil": "2026-11-27T00:00:00.000Z"
+      },
+      "createdAt": "2026-11-26T00:00:00.000Z"
+    }
+  ],
+  "operations": [
+    {
+      "id": "expired-compliance-allows-overwrite",
+      "type": "put",
+      "body": "governed",
+      "etag": "\"etag-governed\"",
+      "ifMatch": "\"etag-seed\"",
+      "retention": {
+        "mode": "GOVERNANCE",
+        "retainUntil": "2026-11-29T00:00:00.000Z"
+      }
+    },
+    {
+      "id": "governance-blocked-without-bypass",
+      "type": "put",
+      "body": "blocked",
+      "ifMatch": "\"etag-governed\""
+    },
+    {
+      "id": "governance-bypassed",
+      "type": "put",
+      "body": "bypassed",
+      "etag": "\"etag-bypassed\"",
+      "ifMatch": "\"etag-governed\"",
+      "bypassGovernanceRetention": true
+    },
+    {
+      "id": "delete-before-concurrent-recreate",
+      "type": "delete"
+    },
+    {
+      "id": "concurrent-if-none-match",
+      "type": "concurrentPut",
+      "preCreateAllTickets": true,
+      "writes": [
+        {
+          "body": "winner",
+          "etag": "\"etag-winner\"",
+          "ifNoneMatch": "*",
+          "delayMs": 0
+        },
+        {
+          "body": "loser",
+          "etag": "\"etag-loser\"",
+          "ifNoneMatch": "*",
+          "delayMs": 20
+        }
+      ]
+    }
+  ]
+}
